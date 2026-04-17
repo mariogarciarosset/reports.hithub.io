@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard Premium - Rosset E-commerce & Performance Analytics">
+    <meta name="theme-color" content="#001F3F">
+    
+    <title>Rosset Dashboard Premium | E-commerce Analytics</title>
+    
+    <!-- Google Fonts - Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Premium Color Palette */
+            --color-primary: #001F3F;           /* Deep Navy Blue */
+            --color-primary-light: #003d5c;     /* Lighter Navy */
+            --color-primary-dark: #001428;      /* Darker Navy */
+            --color-accent-gold: #D4AF37;       /* Premium Gold */
+            --color-accent-green: #2D5016;      /* Dark Green */
+            --color-accent-emerald: #5FBA7D;    /* Emerald Green */
+            --color-white: #FFFFFF;
+            --color-bg-light: #F8FAFB;
+            --color-bg-lighter: #F0F3F7;
+            --color-text-primary: #0F1419;
+            --color-text-secondary: #5A6B7D;
+            --color-text-light: #8A95A3;
+            --color-border: #E3E8EF;
+            --color-border-dark: #D1D8E0;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-info: #3B82F6;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Shadows - Premium Elevation */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --shadow-premium: 0 25px 50px rgba(0, 31, 63, 0.15);
+        }
+        
+        /* Typography */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
+        h2 { font-size: 1.875rem; letter-spacing: -0.01em; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+        h5 { font-size: 1.125rem; }
+        h6 { font-size: 1rem; }
+        
+        /* Base Layout */
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        main {
+            height: 100vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-border) transparent;
+        }
+        
+        main::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        main::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        main::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+        
+        main::-webkit-scrollbar-thumb:hover {
+            background: var(--color-border-dark);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            border-right: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: var(--spacing-xl);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-xl);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .logo-badge {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-accent-gold) 0%, var(--color-accent-emerald) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--color-primary);
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        
+        .logo-text h3 {
+            margin: 0;
+            color: var(--color-white);
+            font-size: 1.25rem;
+            margin-bottom: 2px;
+        }
+        
+        .logo-text p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .nav-menu {
+            flex: 1;
+            list-style: none;
+        }
+        
+        .nav-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+            font-weight: 600;
+        }
+        
+        .nav-item {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-base);
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--color-accent-gold);
+        }
+        
+        .nav-link.active {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--color-accent-gold);
+            font-weight: 600;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Main Content */
+        .main-wrapper {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+        }
+        
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        
+        .header-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+            margin-left: var(--spacing-lg);
+            padding-left: var(--spacing-lg);
+            border-left: 2px solid var(--color-accent-gold);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+        
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            box-shadow: 0 4px 12px rgba(0, 31, 63, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 31, 63, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--color-white);
+            color: var(--color-primary);
+            border: 1px solid var(--color-border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-bg-light);
+            border-color: var(--color-primary);
+        }
+        
+        /* Main Content Area */
+        .content {
+            flex: 1;
+            padding: var(--spacing-2xl);
+            overflow-y: auto;
+        }
+        
+        .page-header {
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .page-header h1 {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .page-header p {
+            color: var(--color-text-light);
+            margin: 0;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent-gold) 0%, var(--color-accent-emerald) 100%);
+            transform: scaleX(0);
+            transition: transform var(--transition-base);
+            transform-origin: left;
+        }
+        
+        .card:hover {
+            border-color: var(--color-accent-gold);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .card-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-light);
+            font-weight: 600;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .card-icon.primary {
+            background: rgba(0, 31, 63, 0.1);
+            color: var(--color-primary);
+        }
+        
+        .card-icon.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+        
+        .card-icon.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+        
+        .card-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .card-progress {
+            width: 100%;
+            height: 6px;
+            background: var(--color-bg-light);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: var(--spacing-md);
+        }
+        
+        .card-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent-gold) 0%, var(--color-accent-emerald) 100%);
+            border-radius: 3px;
+            transition: width var(--transition-slow);
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--color-border);
+            font-size: 0.875rem;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-up {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+        
+        .status-down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-danger);
+        }
+        
+        .status-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+        
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .chart-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .chart-card h3 {
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-primary);
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-bg-lighter) 0%, var(--color-bg-light) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+        
+        .pie-chart-placeholder {
+            height: 200px;
+        }
+        
+        /* Table */
+        .table-wrapper {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background: var(--color-bg-lighter);
+            padding: var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            border-bottom: 2px solid var(--color-border);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .table td {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text-primary);
+        }
+        
+        .table tbody tr:hover {
+            background: var(--color-bg-light);
+            transition: background var(--transition-base);
+        }
+        
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                width: 280px;
+                height: 100vh;
+                z-index: 999;
+                transition: left var(--transition-base);
+            }
+            
+            .sidebar.open {
+                left: 0;
+            }
+            
+            .main-wrapper {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .header-toggle {
+                display: flex;
+                cursor: pointer;
+                color: var(--color-primary);
+                font-size: 1.5rem;
+            }
+            
+            header {
+                padding: var(--spacing-md) var(--spacing-lg);
+            }
+            
+            .header-subtitle {
+                display: none;
+            }
+            
+            .content {
+                padding: var(--spacing-lg);
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+            
+            .table {
+                font-size: 0.75rem;
+            }
+            
+            .table th, .table td {
+                padding: var(--spacing-md);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.25rem; }
+            
+            .cards-grid {
+                gap: var(--spacing-md);
+            }
+            
+            .card {
+                padding: var(--spacing-md);
+            }
+        }
+        
+        /* Accessibility */
+        a:focus, button:focus {
+            outline: 2px solid var(--color-accent-gold);
+            outline-offset: 2px;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .mt-md { margin-top: var(--spacing-md); }
+        .mt-lg { margin-top: var(--spacing-lg); }
+        .mb-md { margin-bottom: var(--spacing-md); }
+        .mb-lg { margin-bottom: var(--spacing-lg); }
+        .flex { display: flex; }
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+        .gap-md { gap: var(--spacing-md); }
+        .gap-lg { gap: var(--spacing-lg); }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-badge">🎯</div>
+            <div class="logo-text">
+                <h3>ROSSET</h3>
+                <p>Analytics Premium</p>
+            </div>
+        </div>
+        
+        <nav class="nav-menu">
+            <span class="nav-label">Principal</span>
+            <ul style="list-style: none;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <span class="nav-icon">📊</span>
+                        <span>Visão Geral</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon">📈</span>
+                        <span>Captação vs Faturamento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon">⭐</span>
+                        <span>Performance por Marca</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon">🔄</span>
+                        <span>Devoluções & Qualidade</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <span class="nav-label">Relatórios</span>
+            <ul style="list-style: none;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon">📋</span>
+                        <span>Vendas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon">💰</span>
+                        <span>Receita</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon">⚙️</span>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <span class="header-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">☰</span>
+                <div>
+                    <h2 class="header-title">Dashboard E-commerce</h2>
+                    <span class="header-subtitle">Março 2026 • MTD até 26/03</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="btn btn-secondary">
+                    ⬇️ Exportar ZIP
+                </button>
+                <span style="color: var(--color-text-light); font-size: 0.875rem;">
+                    📅 Março 2026
+                </span>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main>
+            <div class="content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>Visão Geral</h1>
+                    <p>Março 2026 — Resumo Executivo MTD</p>
+                </div>
+                
+                <!-- KPI Cards Grid -->
+                <div class="cards-grid">
+                    <!-- Captação Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-label">Captação</div>
+                            </div>
+                            <div class="card-icon primary">🛒</div>
+                        </div>
+                        <div class="card-value">R$ 3.601.800</div>
+                        <div class="card-subtitle">Meta: R$ 4.370.000</div>
+                        <div class="card-progress">
+                            <div class="card-progress-bar" style="width: 82.4%;"></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="status-badge status-up">
+                                📈 82.4%
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Faturamento Líquido Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-label">Fat. Líquido</div>
+                            </div>
+                            <div class="card-icon success">💵</div>
+                        </div>
+                        <div class="card-value">R$ 3.031.200</div>
+                        <div class="card-subtitle">Meta: R$ 3.650.000</div>
+                        <div class="card-progress">
+                            <div class="card-progress-bar" style="width: 83.0%;"></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="status-badge status-up">
+                                📈 83.0%
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Devoluções Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-label">Devoluções</div>
+                            </div>
+                            <div class="card-icon warning">🔄</div>
+                        </div>
+                        <div class="card-value">R$ 254.800</div>
+                        <div class="card-subtitle">Taxa: 7.8%</div>
+                        <div class="card-progress">
+                            <div class="card-progress-bar" style="width: 7.75%; background: linear-gradient(90deg, var(--color-warning), var(--color-danger));"></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="status-badge status-down">
+                                📉 7.8%
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Ticket Médio Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-label">Ticket Médio</div>
+                            </div>
+                            <div class="card-icon primary">🎯</div>
+                        </div>
+                        <div class="card-value">R$ 331</div>
+                        <div class="card-subtitle">Por transação</div>
+                        <div class="card-progress">
+                            <div class="card-progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="card-footer">
+                            <span style="color: var(--color-text-light);">Estável</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Margem Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-label">Margem Líquida</div>
+                            </div>
+                            <div class="card-icon success">📊</div>
+                        </div>
+                        <div class="card-value">61.4%</div>
+                        <div class="card-subtitle">Rentabilidade</div>
+                        <div class="card-progress">
+                            <div class="card-progress-bar" style="width: 61.4%;"></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="status-badge status-up">
+                                📈 +2.1%
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Conversão Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-label">Taxa Conversão</div>
+                            </div>
+                            <div class="card-icon success">✅</div>
+                        </div>
+                        <div class="card-value">4.2%</div>
+                        <div class="card-subtitle">Visitantes → Clientes</div>
+                        <div class="card-progress">
+                            <div class="card-progress-bar" style="width: 84%;"></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="status-badge status-up">
+                                📈 0.3%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Section -->
+                <div class="charts-grid">
+                    <!-- Line Chart -->
+                    <div class="chart-card">
+                        <h3>📈 Atingimento Captação MTD</h3>
+                        <div class="chart-placeholder">
+                            Gráfico: Evolução Diária (Integrável com Plotly/Chart.js)
+                        </div>
+                    </div>
+                    
+                    <!-- Pie Chart -->
+                    <div class="chart-card">
+                        <h3>🎯 Distribuição por Marca</h3>
+                        <div class="chart-placeholder pie-chart-placeholder">
+                            Gráfico Pizza: Participação de Marca
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Performance Table -->
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Captação</th>
+                                <th>Faturamento</th>
+                                <th>Devoluções</th>
+                                <th>Margem</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 600;">Premium Line</td>
+                                <td>R$ 1.200.000</td>
+                                <td>R$ 1.050.000</td>
+                                <td>8.2%</td>
+                                <td>65.2%</td>
+                                <td><span class="status-badge status-up">Acima da Meta</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Classic Collection</td>
+                                <td>R$ 980.500</td>
+                                <td>R$ 850.300</td>
+                                <td>6.5%</td>
+                                <td>61.5%</td>
+                                <td><span class="status-badge status-warning">Na Meta</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Eco Essentials</td>
+                                <td>R$ 750.300</td>
+                                <td>R$ 650.900</td>
+                                <td>9.1%</td>
+                                <td>58.7%</td>
+                                <td><span class="status-badge status-down">Abaixo da Meta</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Elite Edition</td>
+                                <td>R$ 671.000</td>
+                                <td>R$ 480.000</td>
+                                <td>7.3%</td>
+                                <td>60.1%</td>
+                                <td><span class="status-badge status-up">Acima da Meta</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Mobile Sidebar Toggle Script -->
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.getElementById('sidebarToggle');
+            
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        });
+        
+        // Close sidebar on nav link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
